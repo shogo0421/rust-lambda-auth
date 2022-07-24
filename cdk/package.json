@@ -1,0 +1,28 @@
+{
+  "name": "cdk",
+  "version": "0.1.0",
+  "bin": {
+    "test-cdk": "deploy/stack.js"
+  },
+  "scripts": {
+    "cdk:bootstrap": "cdk bootstrap aws://$(aws sts get-caller-identity | jq -r .Account)/$AWS_REGION",
+    "cdk:deploy": "[[ $CI == 'true' ]] && export CDK_APPROVAL='never' || export CDK_APPROVAL='broadening'; cdk deploy --require-approval $CDK_APPROVAL '*'"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.10",
+    "@types/node": "^10.17.27",
+    "aws-cdk-lib": "^2.20.0",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.2.0",
+    "ts-node": "^9.1.1",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/assert": "^2.20.0",
+    "constructs": "^10.0.110",
+    "dotenv": "^16.0.1",
+    "source-map-support": "^0.5.16",
+    "tsconfig-paths": "^3.14.1"
+  },
+  "exports": "./package.json"
+}
